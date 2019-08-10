@@ -94,6 +94,7 @@ func ReadFull(r io.Reader, buf []byte) (n int, err error) {
 	return
 }
 
+//读文件并将文件内容显示出来
 func ReadeFile(path string) (content string) {
 	file, err := os.Open("./resource/testfile.txt")
 	defer file.Close()
@@ -103,13 +104,13 @@ func ReadeFile(path string) (content string) {
 		//return  err.Error()
 	}
 
+	//读文件
 	reader := bufio.NewReader(file)
 
 	for {
-
 		line, err := reader.ReadString('\n')
 		if err != nil {
-			if err == io.EOF {
+			if err == io.EOF { //文件结尾
 				break
 			} else {
 				fmt.Println(err)
@@ -122,5 +123,4 @@ func ReadeFile(path string) (content string) {
 	}
 
 	return content
-
 }
