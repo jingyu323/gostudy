@@ -2,8 +2,10 @@ package main
 
 import (
 	"./clent"
+	"bufio"
 	"fmt"
 	"io"
+	"os"
 	"strings"
 ) //系统包用来输出的
 
@@ -55,6 +57,10 @@ func main() {
 
 	fmt.Println("buffer size is:", len)
 
+	context := ReadeFile("tet")
+
+	fmt.Println("context is the :" + context)
+
 }
 
 func unhex(c byte) byte {
@@ -86,4 +92,35 @@ func ReadFull(r io.Reader, buf []byte) (n int, err error) {
 		buf = buf[nr:]
 	}
 	return
+}
+
+func ReadeFile(path string) (content string) {
+	file, err := os.Open("./resource/testfile.txt")
+	defer file.Close()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+		//return  err.Error()
+	}
+
+	reader := bufio.NewReader(file)
+
+	for {
+
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			if err == io.EOF {
+				break
+			} else {
+				fmt.Println(err)
+				os.Exit(-1)
+			}
+		}
+
+		content = content + line
+		fmt.Println(line)
+	}
+
+	return content
+
 }
