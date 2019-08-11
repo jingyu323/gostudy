@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"strings"
 )
@@ -74,5 +75,34 @@ func main() {
 
 	//字符串截取 下表是从0开始
 	fmt.Println(sourceStr[0:8])
+
+	//字符串拼接
+
+	//1.直接拼劲儿
+	str := sourceStr + "000"
+	fmt.Println(str)
+
+	//2.Sprintf 字符串输出
+	str = fmt.Sprintf("%s%s%s%s%s", str, "123123", "-3333", "-4444", "-5555")
+	fmt.Println(str)
+
+	//3.[]string利用strings.Join进行拼接
+	s := "1231"
+	s = strings.Join([]string{s, "ewrwer"}, "")
+	fmt.Println(s)
+
+	//4利用[]string和slice的append的性质进行拼接
+	s2 := [3]string{"1", "2", "3"} //声明变量
+	fmt.Println(s2)
+	var s1 []string //声明类型
+	s1 = append(s1, "123123", "666", "0000", "77777")
+	fmt.Println(strings.Join(s1, ""))
+
+	//5.使用bytes.Buffer 只能使用字符串
+	var buf bytes.Buffer
+	buf.WriteString("12312")
+	buf.WriteString("werwer")
+
+	fmt.Println(buf.String())
 
 }
