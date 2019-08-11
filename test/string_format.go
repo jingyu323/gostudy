@@ -98,11 +98,17 @@ func main() {
 	s1 = append(s1, "123123", "666", "0000", "77777")
 	fmt.Println(strings.Join(s1, ""))
 
-	//5.使用bytes.Buffer 只能使用字符串
+	//5.使用bytes.Buffer 只能使用字符串 //效率最高
 	var buf bytes.Buffer
 	buf.WriteString("12312")
 	buf.WriteString("werwer")
 
 	fmt.Println(buf.String())
+
+	/**
+	Buffer time is  0.00388283
+	  += time is  11.730007558
+	  Join time is 0.016644653
+	*/
 
 }
