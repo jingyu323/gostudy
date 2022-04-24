@@ -23,6 +23,18 @@ func (person *Profile) increase_age() {
 	person.age += 1
 }
 
+type Phone interface {
+	call()
+}
+type Nokia struct {
+	name string
+}
+
+// 接收者为 Nokia
+func (phone Nokia) call() {
+	fmt.Println("我是 Nokia，是一台电话")
+}
+
 func main() {
 
 	// 实例化
@@ -46,4 +58,9 @@ func main() {
 	xm.name = "iswbm222"
 
 	fmt.Println(xm.name) // output: iswbm
+
+	iPhone := Nokia{
+		name: "iPhone",
+	}
+	fmt.Println(iPhone.name)
 }
