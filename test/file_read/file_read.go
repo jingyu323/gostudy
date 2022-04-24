@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"io"
@@ -78,6 +79,8 @@ func file_read_all_file() {
 		fmt.Printf("读取文件成功,文件字节大小为:%d\n", n)
 
 		fmt.Println(string(qiepian))
+		jobDowhile()
+		readBybuffio()
 	}
 
 }
@@ -104,6 +107,41 @@ func file_read_wirte() {
 
 }
 
+//golang里面没有while关键字，可以用for+break实现。
 func readBybuffio() {
+	//打开文件
+	file, err := os.Open("./test.txt") //只是用来读的时候，用os.Open。相对路径，针对于同目录下。
+	if err != nil {
+		fmt.Printf("打开文件失败,err:%v\n", err)
+		return
+	}
+	defer file.Close() //关闭文件,为了避免文件泄露和忘记写关闭文件
 
+	//使用buffio读取文件内容
+	reader := bufio.NewReader(file) //创建新的读的对象
+	for {
+		line, err := reader.ReadString('\n') //注意是字符，换行符。
+		if err == io.EOF {
+			fmt.Println("文件读完了")
+			break
+		}
+		if err != nil { //错误处理
+			fmt.Printf("读取文件失败,错误为:%v", err)
+			return
+		}
+		fmt.Print(line)
+	}
+
+}
+
+//模拟do……while实现输出10次hello,world（先做后判断）
+func jobDowhile() {
+	var i = 0
+	for {
+		fmt.Println("hello,world", i)
+		i++
+		if i >= 10 {
+			break
+		}
+	}
 }
