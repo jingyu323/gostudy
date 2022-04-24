@@ -85,6 +85,10 @@ func file_read_all_file() {
 
 		fmt.Println("ioutil start")
 		readByioutil()
+		fmt.Println("buffiowrite start")
+		buffiowrite()
+		fmt.Println("ioutilWrite start")
+		ioutilWrite()
 	}
 
 }
@@ -158,4 +162,29 @@ func readByioutil() {
 		return
 	}
 	fmt.Println(string(file)) //打印文件内容
+}
+func buffiowrite() {
+	file, err := os.OpenFile("./gch.txt", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+	if err != nil {
+		fmt.Printf("打开文件失败,错误为:%v\n", err)
+		return
+	}
+	defer file.Close() //关闭文件
+	writer := bufio.NewWriter(file)
+	for i := 0; i < 10; i++ { //循环写入10行
+		writer.WriteString("test\n") //将数据写入缓存
+	}
+	writer.Flush() //将缓存中内容的写入文件
+
+}
+
+func ioutilWrite() {
+	str := "hell golan "
+
+	err := ioutil.WriteFile("./ioutil.txt", []byte(str), 0664)
+	if err != nil {
+		fmt.Printf("打开文件失败,错误为:%v\n", err)
+		return
+	}
+
 }
