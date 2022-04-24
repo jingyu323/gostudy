@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
 )
 
@@ -81,6 +82,9 @@ func file_read_all_file() {
 		fmt.Println(string(qiepian))
 		jobDowhile()
 		readBybuffio()
+
+		fmt.Println("ioutil start")
+		readByioutil()
 	}
 
 }
@@ -144,4 +148,14 @@ func jobDowhile() {
 			break
 		}
 	}
+}
+
+//ioutuil ioutil读取整个文件：
+func readByioutil() {
+	file, err := ioutil.ReadFile("./test.txt")
+	if err != nil {
+		fmt.Println("file open fail")
+		return
+	}
+	fmt.Println(string(file)) //打印文件内容
 }
