@@ -43,6 +43,30 @@ func Print(obj interface{}) error {
 
 	return nil
 }
+
+func Print2(obj interface{}) error {
+	// 1对象进行反射
+	v := reflect.ValueOf(obj)
+
+	// 解析字段
+	for i := 0; i < v.NumField(); i++ {
+		// 取tag
+		field := v.Type().Field(i)
+		tag := field.Tag
+
+		label := tag.Get("label")
+		defaultvalue := tag.Get("default")
+
+		value := fmt.Sprintf("%v", v.Field(i))
+		if value == "" {
+			value = defaultvalue
+		}
+
+		fmt.Println(label + value)
+	}
+	return nil
+
+}
 func main() {
 	fmt.Println("s")
 	p1 := Person{
@@ -70,10 +94,22 @@ func main() {
 	// p2 则会打印所有p
 	fmt.Printf("%s\n", data2)
 	// f反射
-	p := reflect.TypeOf(Person{})
+	p := reflect.TypeOf(Person2{})
 	name, _ := p.FieldByName("name")
 
-	fmt.Printf("%q\n", name.Tag) //输出 ""
+	fmt.Printf("1233->... %q\n", name.Tag) //输出 ""
 
+	p3 := reflect.TypeOf(Person2{})
+
+	field, _ := p3.FieldByName("name")
+
+	fmt.Println(field)
+
+	tag := field.Tag
+	fmt.Println(tag)
+	labelValue := tag.Get("label")
+	fmt.Println(labelValue)
 	Print(p2)
+
+	Print2(p2)
 }
