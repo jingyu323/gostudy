@@ -56,4 +56,25 @@ func test_point() {
 	v.MethodByName("SayHello").Call(nil)
 	v.MethodByName("SayBye").Call(nil)
 
+	fmt.Println("&m Type: ", t)
+	fmt.Println("&m Kind: ", t.Kind())
+
+	fmt.Println("m Type: ", t.Elem())
+	fmt.Println("m Kind: ", t.Elem().Kind())
+
+	v1 := reflect.ValueOf(&m)
+
+	fmt.Println("&m Type: ", v1.Type())
+	fmt.Println("&m Kind: ", v1.Kind())
+
+	fmt.Println("m Type: ", v1.Elem().Type())
+	fmt.Println("m Kind: ", v1.Elem().Kind())
+
+	var score float64 = 99.5
+
+	v11 := reflect.ValueOf(score)
+	fmt.Printf("转换前， type: %T, value: %v \n", v1, v1)
+	v2 := v11.Float()
+	fmt.Printf("转换后， type: %T, value: %v \n", v2, v2)
+
 }
