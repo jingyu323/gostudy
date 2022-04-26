@@ -27,4 +27,5 @@ func main() {
 	// 以后会介绍一种更合适的方法（Mutex），这里暂时使用sleep
 	time.Sleep(time.Second)
 	fmt.Println("x 的值：", x)
+
 }
