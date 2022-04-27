@@ -1,51 +1,38 @@
 package main
 
 import (
-	"fmt"
+	"bytes"
 	"math/rand"
-	"net/http"
 	_ "net/http/pprof"
 	"os"
 	"runtime/pprof"
 )
 
-const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const Letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-func randomString(n int) string {
-	b := make([]byte, n)
-	for i := range b {
-		b[i] = letterBytes[rand.Intn(len(letterBytes))]
-	}
-	return string(b)
-}
-
-func concat(n int) string {
-	s := ""
+func generate(n int) string {
+	var buf bytes.Buffer
 	for i := 0; i < n; i++ {
-		s += randomString(n)
+		buf.WriteByte(Letters[rand.Intn(len(Letters))])
 	}
-	return s
+	return buf.String()
 }
 
-func fib(n int) int {
-	if n <= 1 {
-		return 1
+func repeat(s string, n int) string {
+	var result string
+	for i := 0; i < n; i++ {
+		result += s
 	}
 
-	return fib(n-1) + fib(n-2)
+	return result
 }
+
 func main() {
-	f, _ := os.OpenFile("cpu.profile", os.O_CREATE|os.O_RDWR, 0644)
+	f, _ := os.OpenFile("mem.profile", os.O_CREATE|os.O_RDWR, 0644)
 	defer f.Close()
-	pprof.StartCPUProfile(f)
-	defer pprof.StopCPUProfile()
-
-	n := 10
-	for i := 1; i <= 5; i++ {
-		fmt.Printf("fib(%d)=%d\n", n, fib(n))
-		n += 3 * i
+	for i := 0; i < 1000; i++ {
+		repeat(generate(100), 100)
 	}
-	go func() {
-		http.ListenAndServe("0.0.0.0:6060", nil)
-	}()
+
+	pprof.Lookup("heap").WriteTo(f, 0)
 }
