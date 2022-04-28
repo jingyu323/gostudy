@@ -8,6 +8,7 @@ import (
 	"strconv"
 )
 
+//与C++、Java等完整支持面向对象的语言不同，Golang没有显式的继承，而是通过组合实现继承。
 // 定义一个接口
 type Good interface {
 	settleAccount() int

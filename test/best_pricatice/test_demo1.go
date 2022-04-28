@@ -1,8 +1,10 @@
-package best_pricatice
+package main
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
+	"os"
 )
 
 //先处理错误避免嵌套
@@ -13,10 +15,16 @@ type Gopher struct {
 
 func main() {
 	gofer := &Gopher{
-		"", 9,
+		"223", 9,
 	}
-	io.WriteString()
-	gofer.WriteTo()
+	file, err := os.OpenFile("./gc2.txt", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+	if err != nil {
+		fmt.Printf("打开文件失败,错误为:%v\n", err)
+		return
+	}
+	defer file.Close() //关闭文件
+
+	gofer.WriteTo(file) // ??? io.writer 竟然可以用file
 
 }
 
