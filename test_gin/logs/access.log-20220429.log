@@ -1,0 +1,8 @@
+{"client_ip":"::1","latency_time":532600,"level":"info","msg":"","req_Id":"1651240555492883000","req_body":"","req_method":"GET","req_uri":"/test/ping","res_body":"null","status_code":200,"time":"2022-04-29 21:55:55"}
+{"client_ip":"::1","latency_time":0,"level":"info","msg":"","req_Id":"1651240555540109400","req_body":"","req_method":"GET","req_uri":"/favicon.ico","res_body":"null","status_code":404,"time":"2022-04-29 21:55:55"}
+{"client_ip":"::1","latency_time":372400,"level":"info","msg":"","req_Id":"1651240740874661400","req_body":"","req_method":"GET","req_uri":"/test/ping","res_body":"null","status_code":200,"time":"2022-04-29 21:59:00"}
+{"client_ip":"::1","latency_time":0,"level":"info","msg":"","req_Id":"1651240741105378300","req_body":"","req_method":"GET","req_uri":"/test/ping","res_body":"null","status_code":200,"time":"2022-04-29 21:59:01"}
+{"client_ip":"::1","latency_time":519000,"level":"info","msg":"","req_Id":"1651240857133264600","req_body":"","req_method":"GET","req_uri":"/someXML","res_body":"null","status_code":200,"time":"2022-04-29 22:00:57"}
+{"client_ip":"::1","latency_time":542000,"level":"info","msg":"","req_Id":"1651240950235481100","req_body":"","req_method":"GET","req_uri":"/test/ping","res_body":"null","status_code":200,"time":"2022-04-29 22:02:30"}
+{"client_ip":"::1","latency_time":861300,"level":"info","msg":"","req_Id":"1651240955537275300","req_body":"","req_method":"GET","req_uri":"//test/someYAML","res_body":"null","status_code":404,"time":"2022-04-29 22:02:35"}
+{"client_ip":"::1","latency_time":962600,"level":"info","msg":"","req_Id":"1651240961116501700","req_body":"","req_method":"GET","req_uri":"/test/someYAML","res_body":"null","status_code":200,"time":"2022-04-29 22:02:41"}
