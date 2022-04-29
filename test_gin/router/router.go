@@ -1,8 +1,11 @@
 package router
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"test_gin/mysql_connection"
 )
 
 var Router *gin.Engine
@@ -53,6 +56,24 @@ func SetupRouter(projectPath string) {
 	Router.GET(projectPath+"/someYAML", func(c *gin.Context) {
 		// 会输出头格式为 text/yaml; charset=UTF-8 的 yaml 字符串
 		c.YAML(http.StatusOK, gin.H{"message": "hey", "status": http.StatusOK})
+	})
+	Router.GET(projectPath+"/datafromdb", func(c *gin.Context) {
+		// 会输出头格式为 text/yaml; charset=UTF-8 的 yaml 字符串
+		orders := mysql_connection.GetAllOrders()
+		fmt.Print("orders:is")
+		fmt.Println(len(orders))
+
+		for  key,v := range orders{
+			fmt.Println("key is %s",key)
+			fmt.Println(v)
+		}
+
+		data, err :=json.Marshal(orders)
+		if err != nil {
+			 fmt.Println(err)
+		}
+		fmt.Printf("ttt      %s\n", data)
+		c.JSON(http.StatusOK, gin.H{"message": data, "status": http.StatusOK})
 	})
 
 }

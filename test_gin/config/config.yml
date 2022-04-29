@@ -8,6 +8,6 @@ redis_addr: "192.168.146.18:6379"
 
 mysql_user: "root"
 mysql_pwd: "root"
-mysql_host: "192.168.146.18"
+mysql_host: "localhost"
 mysql_port: 3306
 mysql_db: "iot-data"
