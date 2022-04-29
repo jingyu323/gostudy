@@ -1,7 +1,8 @@
 package main
+
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 	"log"
 )
 
@@ -11,6 +12,7 @@ b:
   c: 2
   d: [3, 4]
 `
+
 type T struct {
 	A string
 	B struct {
@@ -26,6 +28,7 @@ type Person struct {
 	Name string
 	Age  int
 }
+
 func (n NotknownType) String() string {
 	return n.S1 + " - " + n.S2 + " - " + n.S3
 }
@@ -47,7 +50,7 @@ func main() {
 
 	m := make(map[interface{}]interface{})
 
-	err = yaml.Unmarshal([]byte(data),m)
+	err = yaml.Unmarshal([]byte(data), m)
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}

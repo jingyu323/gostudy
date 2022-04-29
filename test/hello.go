@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./clent"
+
 	"bufio"
 	"fmt"
 	"io"
