@@ -1,0 +1,12 @@
+app:
+  name: test
+cache:
+  enable : false
+  list : [redis, memcache]
+mysql:
+  user : root
+  password : root
+  host : localhost
+  port : 3306
+  dbname : tets
+

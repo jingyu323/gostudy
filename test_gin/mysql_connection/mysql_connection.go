@@ -9,7 +9,6 @@ import (
 )
 
 type MysqlConnection struct {
-
 }
 
 var Config = config.MyConfigInfo
@@ -27,58 +26,58 @@ func DatabaseDialString() string {
 }
 
 type Order struct {
-	orderid string
+	Orderid   string
 	projectid string
-	status string
+	Status    string
 }
+
 var Db *sqlx.DB
 
-func init()  {
-	str :=DatabaseDialString()
+func init() {
+	str := DatabaseDialString()
 	fmt.Println(str)
 	database, err := sqlx.Open("mysql", str)
-	if err != nil{
-		fmt.Println("scan failed ,err:%v/n",err)
+	if err != nil {
+		fmt.Println("scan failed ,err:%v/n", err)
 		return
 	}
-	Db =database
+	Db = database
 
 }
-func GetAllOrders() []Order{
+func GetAllOrders() []Order {
 	var orders []Order
-	rows,err := Db.Query("select  * from  order_test")
-	if err!=nil{
-		fmt.Println("scan failed ,err:%v/n",err)
-		return  nil
+	rows, err := Db.Query("select  * from  order_test")
+	if err != nil {
+		fmt.Println("scan failed ,err:%v/n", err)
+		return nil
 	}
 
-	for rows.Next(){
+	for rows.Next() {
 		var u Order
-		err:=rows.Scan(&u.orderid,&u.projectid,&u.status)
+		err := rows.Scan(&u.Orderid, &u.projectid, &u.Status)
 
-		if err!=nil{
-			fmt.Println("query failed,err:%v\n",err)
+		if err != nil {
+			fmt.Println("query failed,err:%v\n", err)
 			return nil
 		}
-		orders = append(orders,u )
-		fmt.Printf("id:%d name:%s age:%d\n",u.orderid,u.projectid,u.status)
+		orders = append(orders, u)
+		fmt.Printf("id:%d name:%s age:%d\n", u.Orderid, u.projectid, u.Status)
 	}
 	fmt.Println(len(orders))
 	return orders
 
-
 }
 func main() {
-	orders :=GetAllOrders()
+	orders := GetAllOrders()
 	fmt.Print("orders:is")
 	fmt.Println(len(orders))
 
-	for  key,v := range orders{
-		fmt.Println("key is %s",key)
+	for key, v := range orders {
+		fmt.Println("key is %s", key)
 		fmt.Println(v)
 	}
 
-	data, err :=json.Marshal(orders)
+	data, err := json.Marshal(&orders)
 	if err != nil {
 		fmt.Println(err)
 	}
