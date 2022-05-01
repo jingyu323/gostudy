@@ -18,6 +18,11 @@ func GinInit() {
 	//而gin.Default()不但返回一个*Engine 指针，而且还进行了debugPrintWARNINGDefault()和engine.Use(Logger(), Recovery())其他的一些中间件操作
 	Router = gin.Default()
 	//Router = gin.New()
+
+	//Router.LoadHTMLGlob("./views/**/*")
+	//Router.LoadHTMLGlob("views/**/*")
+	Router.LoadHTMLGlob("templates/**/*")
+	//Router.LoadHTMLGlob("templates/*")
 }
 
 func SetupRouter(projectPath string) {
@@ -63,17 +68,33 @@ func SetupRouter(projectPath string) {
 		fmt.Print("orders:is")
 		fmt.Println(len(orders))
 
-		for  key,v := range orders{
-			fmt.Println("key is %s",key)
+		for key, v := range orders {
+			fmt.Println("key is %s", key)
 			fmt.Println(v)
 		}
 
-		data, err :=json.Marshal(orders)
+		data, err := json.Marshal(orders)
 		if err != nil {
-			 fmt.Println(err)
+			fmt.Println(err)
 		}
 		fmt.Printf("ttt      %s\n", data)
 		c.JSON(http.StatusOK, gin.H{"message": data, "status": http.StatusOK})
+	})
+
+	Router.POST("/form", func(context *gin.Context) {
+		types := context.DefaultPostForm("type", "post")
+		username := context.PostForm("username")
+		password := context.PostForm("password")
+
+		context.String(http.StatusOK, fmt.Sprintf("username:%s , password:%s , types:%s", username, password, types))
+	})
+
+	Router.GET(projectPath+"/userlogin", func(c *gin.Context) {
+
+		c.HTML(http.StatusOK, "user_login22.html", gin.H{
+			"title": "Users",
+		})
+
 	})
 
 }

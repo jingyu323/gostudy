@@ -1,4 +1,4 @@
-package main
+package mysql_connection
 
 import (
 	"encoding/json"
