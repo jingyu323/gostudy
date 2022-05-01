@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"test_gin/dao"
 	"test_gin/mysql_connection"
 )
 
 var Router *gin.Engine
-
+var orderTest *dao.OrderTest
 func GinInit() {
+	orderTest =new(dao.OrderTest)
 	// 禁用控制台颜色
 	//gin.DisableConsoleColor()
 
@@ -23,6 +25,7 @@ func GinInit() {
 	//Router.LoadHTMLGlob("views/**/*")
 	Router.LoadHTMLGlob("templates/**/*")
 	//Router.LoadHTMLGlob("templates/*")
+
 }
 
 func SetupRouter(projectPath string) {
@@ -95,6 +98,24 @@ func SetupRouter(projectPath string) {
 			"title": "Users",
 		})
 
+	})
+	Router.GET(projectPath+"/getLastOrder", func(c *gin.Context) {
+
+		orders := orderTest.Query()
+		fmt.Print("orders:is")
+		fmt.Println(len(orders))
+
+		for key, v := range orders {
+			fmt.Println("key is %s", key)
+			fmt.Println(v)
+		}
+
+		data, err := json.Marshal(orders)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("ttt      %s\n", data)
+		c.JSON(http.StatusOK, gin.H{"message": data, "status": http.StatusOK})
 	})
 
 }
