@@ -8,8 +8,10 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"runtime"
 	. "test_gin/config"
+	"test_gin/dao"
 	. "test_gin/log"
 	"test_gin/router"
+	"test_gin/service"
 	"time"
 )
 
@@ -41,10 +43,19 @@ func main() {
 	Log.Info("start server...")
 
 	gin.SetMode(gin.DebugMode) //全局设置环境，此为开发环境，线上环境为gin.ReleaseMode
-	router.GinInit()
 
+	Db := dao.InitGorm()
+	fmt.Println("main4444  dao db is:", dao.Db)
+	fmt.Println("main55555555555 dao db is:", dao.SqlSession)
+
+	//程序退出关闭数据库连接
+	defer dao.Close()
+
+	router.GinInit()
 	//gin工程实例 *gin.Engine
 	r := router.Router
+	fmt.Println("main  dao db is:", Db)
+	dao.SqlSession.AutoMigrate(&service.OrderTest{})
 
 	//路由初始化
 	router.SetupRouter(*projectPath)
