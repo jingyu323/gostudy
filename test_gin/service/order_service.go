@@ -32,8 +32,10 @@ func Update(order *dao.OrderTest) {
 	//user := User{Id: 1}
 	//db.Model(&user).Select("name").Update(map[string]interface{}{"name":"","age":0})
 }
-func Delete(order *dao.OrderTest) {
+func Delete(id string) (err error) {
 	fmt.Println("Delete start")
+	err = dao.SqlSession.Where("orderid=?", id).Delete(&dao.OrderTest{}).Error
+	return
 
 }
 

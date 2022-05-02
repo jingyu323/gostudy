@@ -108,5 +108,6 @@ func SetupRouter(projectPath string) {
 	})
 	Router.GET(projectPath+"/getLastOrder", controller.GetUserList)
 	Router.POST(projectPath+"/createOrder", controller.CreateOrder)
+	Router.GET(projectPath+"/deleteOrder", controller.DeleteOrder)
 
 }
