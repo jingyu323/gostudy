@@ -99,6 +99,14 @@ func SetupRouter(projectPath string) {
 		})
 
 	})
+	Router.GET(projectPath+"/userlogin222", func(c *gin.Context) {
+
+		c.HTML(http.StatusOK, "create_order.html", gin.H{
+			"title": "Users",
+		})
+
+	})
 	Router.GET(projectPath+"/getLastOrder", controller.GetUserList)
+	Router.POST(projectPath+"/createOrder", controller.CreateOrder)
 
 }

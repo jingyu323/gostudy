@@ -63,3 +63,7 @@ func Close() {
 func (OrderTest) TableName() string {
 	return "order_test"
 }
+
+/**
+一直有个疑问就是
+*/

@@ -11,7 +11,6 @@ import (
 	"test_gin/dao"
 	. "test_gin/log"
 	"test_gin/router"
-	"test_gin/service"
 	"time"
 )
 
