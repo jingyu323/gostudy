@@ -55,7 +55,7 @@ func main() {
 	//gin工程实例 *gin.Engine
 	r := router.Router
 	fmt.Println("main  dao db is:", Db)
-	dao.SqlSession.AutoMigrate(&service.OrderTest{})
+	dao.SqlSession.AutoMigrate(&dao.OrderTest{})
 
 	//路由初始化
 	router.SetupRouter(*projectPath)
